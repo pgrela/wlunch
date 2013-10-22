@@ -1,0 +1,16 @@
+target/
+bin/
+.*
+!.gitignore
+hub-integration-tests/src/test/resources/it.properties
+hub-integration-tests/src/test/resources/jdbc.properties
+hub-integration-tests/*.wsdd
+*/*/src/test/resources/log4j.xml
+*/src/test/resources/log4j.xml
+rebel.xml
+rebel-remote.xml
+nb-configuration.xml
+nbactions.xml
+atlassian-ide-plugin.xml
+*.iml
+*.log
