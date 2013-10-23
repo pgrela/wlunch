@@ -1,4 +1,4 @@
-package com.pa2013;
+package com.pgrela.wlunch.common;
 
 public interface Restaurant {
     String getName();

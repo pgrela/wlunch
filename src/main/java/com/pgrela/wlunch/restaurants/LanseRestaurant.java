@@ -1,4 +1,4 @@
-package com.pa2013.restaurants;
+package com.pgrela.wlunch.restaurants;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,18 +14,19 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
-import com.pa2013.MenuException;
+import com.pgrela.wlunch.common.MenuException;
 
-/**
- * @author: pgrela
- */
+
 public class LanseRestaurant extends AbstractRestaurant {
 
-    public static final String LANSE_URL = "http://restauracja.lanse.pl/danie-dnia";
 
+    public String getUrl() {
+        return "http://restauracja.lanse.pl/danie-dnia";
+    }
 
-    public LanseRestaurant() {
-        setWebpageUrl(LANSE_URL);
+    @Override
+    public String getName() {
+        return "Lanse";
     }
 
     @Override

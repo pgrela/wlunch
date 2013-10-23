@@ -1,14 +1,9 @@
-package com.pa2013;
+package com.pgrela.wlunch.utils;
 
-import java.io.IOException;
-
-/**
-* @author: pgrela
-*/
 public class MenuBuilder {
     private StringBuilder builder = new StringBuilder();
 
-    public MenuBuilder appendMenu(String menu) throws IOException {
+    public MenuBuilder appendMenu(String menu) {
         return this.append(indent(menu)).append("\n\n");
     }
 

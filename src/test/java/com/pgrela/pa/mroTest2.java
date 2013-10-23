@@ -1,4 +1,4 @@
-package com.pa2013;
+package com.pgrela.pa;
 
 import org.junit.Test;
 

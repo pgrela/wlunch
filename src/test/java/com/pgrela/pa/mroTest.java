@@ -1,12 +1,12 @@
-package com.pa2013;
+package com.pgrela.pa;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.pa2013.mro.Drop;
-import com.pa2013.mro.Node;
+import com.pgrela.pa.mro.Drop;
+import com.pgrela.pa.mro.Node;
 
 //import org.testng.annotations.Test;
 /**

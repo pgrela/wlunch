@@ -1,4 +1,4 @@
-package com.pa2013;
+package com.pgrela.pa;
 
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -197,7 +197,7 @@ public class mro {
             min=left.min;
             max=right.max;
         }
-        void move(int from ,int to, int steps){
+        public void move(int from ,int to, int steps){
             if(from<=min && max<=to){
                 legacy+=steps;
                 min+=steps;
@@ -210,14 +210,14 @@ public class mro {
             max=right==null?(left==null?max:left.max+legacy):right.max+legacy;
             min=left==null?(right==null?min:right.min+legacy):left.min+legacy;
         }
-        Integer firstToTheLeftFrom(int place){
+        public Integer firstToTheLeftFrom(int place){
             if(max<place)return max;
             if(min>=place)return null;
             place-=legacy;
             if(right.min<place)return right.firstToTheLeftFrom(place)+legacy;
             return left.firstToTheLeftFrom(place)+legacy;
         }
-        Integer firstToTheRightFrom(int place){
+        public Integer firstToTheRightFrom(int place){
             if(min>place)return min;
             if(max<=place)return null;
             place-=legacy;
