@@ -1,5 +1,8 @@
 package com.pgrela.wlunch.restaurants;
 
+import java.util.Calendar;
+import java.util.List;
+
 import com.pgrela.wlunch.utils.Downloader;
 
 public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
@@ -18,6 +21,8 @@ public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
     public String getMenu() {
         String text = downloader.downloadElement(getUrl(), getSelector());
         String menu = formatMenu(text);
+        List<Calendar> possibleDates = getPossibleDates(text);
+        menu = applyDateWarning(possibleDates) + menu;
         return menu;
     }
 
