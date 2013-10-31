@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.pgrela.wlunch.utils.Downloader;
+import org.springframework.stereotype.Component;
 
-/**
- * @author: pgrela
- */
+@Component
 public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
 
-    public PierogerriaRestaurant(Downloader downloader) {
-        super(downloader);
-    }
 
     @Override
     String getUrl() {

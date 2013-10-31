@@ -4,12 +4,11 @@ import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 import com.pgrela.wlunch.common.MenuException;
 
-/**
- * @author: pgrela
- */
+@Component
 public class Downloader {
     public String downloadElement(String url, String selector) {
         return getDocument(url).select(selector).text();

@@ -14,13 +14,14 @@ import java.util.regex.Pattern;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.springframework.stereotype.Component;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.pgrela.wlunch.common.MenuException;
 import com.pgrela.wlunch.utils.TimeSource;
 
-
+@Component
 public class LanseRestaurant extends AbstractRestaurant {
 
 

@@ -3,6 +3,8 @@ package com.pgrela.wlunch.restaurants;
 import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.pgrela.wlunch.utils.Downloader;
 
 public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
@@ -11,11 +13,9 @@ public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
 
     abstract protected String stripMenu(String menu);
 
-    Downloader downloader;
+    @Autowired
+    private Downloader downloader;
 
-    protected AbstractHtmlRestaurant(Downloader downloader) {
-        this.downloader = downloader;
-    }
 
     @Override
     public String getMenu() {

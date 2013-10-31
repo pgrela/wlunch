@@ -7,16 +7,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.pgrela.wlunch.utils.Downloader;
+import org.springframework.stereotype.Component;
 
-/**
- * @author: pgrela
- */
+@Component
 public class CentralnaRestaurant extends AbstractHtmlRestaurant {
 
-    public CentralnaRestaurant(Downloader downloader) {
-        super(downloader);
-    }
 
     @Override
     protected String getUrl() {
