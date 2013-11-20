@@ -47,10 +47,10 @@ public class CentralnaRestaurantTest extends AbstractTestNGSpringContextTests {
         when(downloader.downloadElement(anyString(), anyString())).thenReturn(webpage);
 
         //when
-        String menu = centralnaRestaurant.getMenu();
+        Menu menu = centralnaRestaurant.getMenu();
 
         //then
-        assertThat(menu).contains("karkówka");
+        assertThat(menu.toString()).contains("karkówka");
     }
 
     @Test
@@ -62,10 +62,10 @@ public class CentralnaRestaurantTest extends AbstractTestNGSpringContextTests {
         when(downloader.downloadElement(anyString(), anyString())).thenReturn(text);
 
         //when
-        String menu = centralnaRestaurant.getMenu();
+        Menu menu = centralnaRestaurant.getMenu();
 
         //then
-        assertThat(menu).contains("not up to date");
+        assertThat(menu.toString()).contains("not up to date");
     }
 
     @Test

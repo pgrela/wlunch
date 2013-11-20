@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CentralnaRestaurant extends AbstractHtmlRestaurant {
 
-
     @Override
     protected String getUrl() {
         return "http://www.eurobistrocatering.pl/menu/stolowka-centralna-pw-politechnika.html";

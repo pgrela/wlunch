@@ -4,28 +4,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.pgrela.wlunch.common.MenuException;
 import com.pgrela.wlunch.utils.TimeSource;
-
 @Component
 public class LanseRestaurant extends AbstractRestaurant {
 
-
-    private final TimeSource timeSource = new TimeSource();
+    @Autowired
+    TimeSource timeSource;
 
     public String getUrl() {
         return "http://restauracja.lanse.pl/danie-dnia";
@@ -37,9 +36,8 @@ public class LanseRestaurant extends AbstractRestaurant {
     }
 
     @Override
-    public String getMenu() {
+    public Menu getMenu() {
 
-        try {
             Pattern lansePattern = Pattern.compile(
                     "<a[^>]+href=\"(http://images.lanse.pl/file/[^>]+.doc)\"><img [^>]+src=\"http://images.lanse.pl/image/ikona-word%5B1%5D.jpg\"[^>]+/></a>");
             String lansePage;
@@ -57,17 +55,15 @@ public class LanseRestaurant extends AbstractRestaurant {
             String docUrl = lanseMatcher.group(1);
 
             String document = docUrlToString(docUrl);
-            String dayOfWeek = new SimpleDateFormat("EEEE", LOCALE_PL).format(new Date());
+            String dayOfWeek = timeSource.getTodayDayName();
             String regexp = dayOfWeek.toUpperCase(LOCALE_PL).substring(0, 1) + dayOfWeek.substring(
                     1) + "[^\n]*\n(.*?)\n\t*\n";
             Matcher menuMatcher = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE + Pattern.DOTALL).matcher(document);
+            Collection<Calendar> possibleDates = getPossibleDates(docUrl);
             if (!menuMatcher.find()) {
-                throw new MenuException("no menu for today!");
+                return new MenuImpl(document,possibleDates);
             }
-            return applyDateWarning(getPossibleDates(docUrl)) + menuMatcher.group(1);
-        } catch (MenuException e) {
-            return e.getMessage();
-        }
+            return new MenuImpl(menuMatcher.group(0),possibleDates);
     }
     @Override
     protected List<Calendar> getPossibleDates(String text) {

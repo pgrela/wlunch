@@ -1,7 +1,10 @@
 package com.pgrela.wlunch.restaurants;
 
-interface Menu {
-    boolean mightItBeForToday();
-    String getPossibleDates();
+import java.util.Calendar;
+import java.util.Collection;
+
+public interface Menu {
+    boolean isThisMenuForDate(Calendar date);
+    Collection<Calendar> getPossibleDates();
     String toString();
 }

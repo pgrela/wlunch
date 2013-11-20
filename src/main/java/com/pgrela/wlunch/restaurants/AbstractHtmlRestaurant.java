@@ -14,19 +14,11 @@ public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
     abstract protected String stripMenu(String menu);
 
     @Autowired
-    private Downloader downloader;
+    protected Downloader downloader;
 
 
-    @Override
-    public String getMenu() {
-        String text = downloader.downloadElement(getUrl(), getSelector());
-        String menu = formatMenu(text);
-        List<Calendar> possibleDates = getPossibleDates(text);
-        menu = applyDateWarning(possibleDates) + menu;
-        return menu;
-    }
 
-    private String formatMenu(String menu) {
+    protected String formatMenu(String menu) {
         menu = deindent(menu);
         menu = stripMenu(menu);
         return menu;
@@ -34,5 +26,13 @@ public abstract class AbstractHtmlRestaurant extends AbstractRestaurant {
 
     private String deindent(String text) {
         return text.replaceAll(" - ?", "\n").replaceAll("\n[ \t]+]", "\n");
+    }
+
+    @Override
+    public Menu getMenu() {
+        String text = downloader.downloadElement(getUrl(), getSelector());
+        String menu = formatMenu(text);
+        List<Calendar> possibleDates = getPossibleDates(text);
+        return new MenuImpl(menu,possibleDates);
     }
 }

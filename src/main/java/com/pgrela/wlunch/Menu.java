@@ -17,7 +17,8 @@ public class Menu {
         MenuBuilder menuBuilder = new MenuBuilder();
         for (Restaurant restaurant : restaurants) {
             menuBuilder.appendHeader(restaurant.getName());
-            menuBuilder.appendMenu(restaurant.getMenu());
+            com.pgrela.wlunch.restaurants.Menu menu = restaurant.getMenu();
+            menuBuilder.appendMenu(menu.toString());
         }
 
         return menuBuilder.toString();

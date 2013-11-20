@@ -25,6 +25,11 @@ public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
     }
 
     @Override
+    public Menu getMenu() {
+        return super.getMenu();
+    }
+
+    @Override
     protected String stripMenu(String menu) {
         return menu.replaceAll(" ZUPA 4.*","").replace("do wyboru:", "").replaceAll("^\\-", "");
     }
