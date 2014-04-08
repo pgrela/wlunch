@@ -1,10 +1,11 @@
 package com.pgrela.wlunch.restaurants;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+
+import com.google.common.collect.Lists;
 
 @Component
 public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
@@ -12,11 +13,11 @@ public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
 
     @Override
     String getUrl() {
-        return "http://www.pierrogeria.eu/";
+        return "http://pierrogeria.upmenu.pl/menu";
     }
 
     protected String getSelector() {
-        return "div.scroll-mini ul";
+        return "div.products div.product-group:contains(LUNCH) + div";
     }
 
     @Override
@@ -31,13 +32,12 @@ public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
 
     @Override
     protected String stripMenu(String menu) {
-        return menu.replaceAll(" ZUPA 4.*","").replace("do wyboru:", "").replaceAll("^\\-", "");
+        return menu.replaceFirst("^[^\\+]+\\+[^\\+]+\\+ +","").replaceAll("[0-9]+,[0-9]{2} zł","").replaceAll(" +\\+ +",
+                "\n");
     }
 
     @Override
     protected List<Calendar> getPossibleDates(String text) {
-        List today = new ArrayList<Calendar>();
-        today.add(Calendar.getInstance());
-        return today;
+        return Lists.newArrayList(Calendar.getInstance());
     }
 }

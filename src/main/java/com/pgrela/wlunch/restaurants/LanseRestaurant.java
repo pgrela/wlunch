@@ -63,7 +63,7 @@ public class LanseRestaurant extends AbstractRestaurant {
             if (!menuMatcher.find()) {
                 return new MenuImpl(document,possibleDates);
             }
-            return new MenuImpl(menuMatcher.group(0),possibleDates);
+            return new MenuImpl(menuMatcher.group(1),possibleDates);
     }
     @Override
     protected List<Calendar> getPossibleDates(String text) {

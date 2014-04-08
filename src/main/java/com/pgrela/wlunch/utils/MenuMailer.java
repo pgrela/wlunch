@@ -11,6 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,17 +22,23 @@ public class MenuMailer {
     @Autowired
     private ConfigurationProvider config;
 
+    private final static Logger LOG = org.slf4j.LoggerFactory.getLogger(MenuBuilder.class);
+
     public void send(String body) {
 
         if (!config.isMailingEnabled()) {
             return;
         }
 
+        LOG.info("Mailing enabled, sending e-mails");
+
         final String username = config.getMailingUsername();
         final String password = config.getMailingPassword();
         String fromName = config.getMailingFromName();
         String fromEmail = config.getMailingFromEmail();
-        String toEmail = config.getMailingEmailAddress();
+        String toEmails = config.getMailingEmailAddresses();
+        String toCcEmails = config.getMailingCcEmailAddresses();
+        String toBccEmails = config.getMailingBccEmailAddresses();
 
         String subject = "menu na " + timeSource.getTodayDayName();
 
@@ -56,12 +63,16 @@ public class MenuMailer {
 
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(fromEmail, fromName));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmails));
+            message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(toCcEmails));
+            message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(toBccEmails));
             message.setReplyTo(InternetAddress.parse(fromEmail));
             message.setSubject(subject);
             message.setText(body);
 
             Transport.send(message);
+
+            LOG.info("Mailing successfully finished");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

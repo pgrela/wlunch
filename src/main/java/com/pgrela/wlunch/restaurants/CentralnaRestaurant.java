@@ -34,7 +34,7 @@ public class CentralnaRestaurant extends AbstractHtmlRestaurant {
     @Override
     protected List<Calendar> getPossibleDates(String text) {
         List<Calendar> dates = new ArrayList<Calendar>();
-        Matcher matcher = Pattern.compile("([0-9]{1,2})[/.\\-]([0-9]{1,2})[/.\\-]((20)?[0-9]{2})").matcher(text);
+        Matcher matcher = Pattern.compile("([0-9]{1,2})[/\\.\\-]([0-9]{1,2})[/\\.\\-]((20)?[0-9]{2})").matcher(text);
         if (matcher.find()) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());

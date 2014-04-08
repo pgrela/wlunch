@@ -14,6 +14,7 @@ public class ConfigurationProvider {
 
     public static final String WLUNCH_PREFIX = "wlunch.";
     Properties properties;
+    private String mailingCcEmailAddress;
 
     public ConfigurationProvider() {
         properties = new Properties();
@@ -36,8 +37,16 @@ public class ConfigurationProvider {
         return Boolean.valueOf(zeroOneToFalseTrue(properties.getProperty("mailing.enabled", "0")));
     }
 
-    public String getMailingEmailAddress() {
+    public String getMailingEmailAddresses() {
         return getRequiredProperty("mailing.email");
+    }
+
+    public String getMailingCcEmailAddresses() {
+        return properties.getProperty("mailing.email-cc", "");
+    }
+
+    public String getMailingBccEmailAddresses() {
+        return properties.getProperty("mailing.email-bcc", "");
     }
 
     public String getMailingPort() {
@@ -87,5 +96,9 @@ public class ConfigurationProvider {
             return "true";
         }
         return "false";
+    }
+
+    public String getMailingCcEmailAddress() {
+        return mailingCcEmailAddress;
     }
 }
