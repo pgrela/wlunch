@@ -68,13 +68,13 @@ public class LanseRestaurant extends AbstractRestaurant {
     @Override
     protected List<Calendar> getPossibleDates(String text) {
         List<Calendar> dates = new ArrayList<Calendar>();
-        Matcher matcher = Pattern.compile("([0-9]{1,2})[_/.\\-]([0-9]{1,2})[_/.\\-]((20)?[0-9]{2})\\.").matcher(text);
+        Matcher matcher = Pattern.compile("([0-9]{1,2}[_/.\\-])?([0-9]{1,2})[_/.\\-]([0-9]{1,2})[_/.\\-]((20)?[0-9]{2})\\.").matcher(text);
         if (matcher.find()) {
             Calendar today= timeSource.getTodaysCalendar();
             Calendar friday = timeSource.getTodaysCalendar();
-            int day = Integer.parseInt(matcher.group(1));
-            int month = Integer.parseInt(matcher.group(2));
-            int year = Integer.parseInt(matcher.group(3));
+            int day = Integer.parseInt(matcher.group(2));
+            int month = Integer.parseInt(matcher.group(3));
+            int year = Integer.parseInt(matcher.group(4));
             friday.set(Calendar.YEAR, year);
             friday.set(Calendar.MONTH, month - 1);
             friday.set(Calendar.DAY_OF_MONTH, day);
@@ -90,11 +90,11 @@ public class LanseRestaurant extends AbstractRestaurant {
     private String docUrlToString(String url) {
         HWPFDocument document;
         try {
-            document = new HWPFDocument(new URL(url).openStream());
+            document = new HWPFDocument(new URL(url.replaceAll(" ","%20")).openStream());
         } catch (MalformedURLException e) {
-            throw new MenuException("wrong url to doc file!");
+            throw new MenuException("wrong url to doc file!", e);
         } catch (IOException e) {
-            throw new MenuException("couldn't download doc file");
+            throw new MenuException("couldn't download doc file", e);
         }
         return new WordExtractor(document).getText();
     }
