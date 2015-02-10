@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.html.HtmlEscapers;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,8 +36,10 @@ public class LanseRestaurant extends AbstractHtmlRestaurant {
     protected String stripMenu(String menu) {
         String dayOfWeek = timeSource.getTodayDayName();
         String regexp = dayOfWeek.toUpperCase(LOCALE_PL).substring(0, 1) + dayOfWeek.substring(
-                1).replace("ą","[ąĄ]") + "[^\n]*\n(.*?)";
-        Matcher menuMatcher = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE + Pattern.DOTALL).matcher(menu);
+                1).replace("ą","[ąĄ]") + "[^\n]*\n(.*\n.*\n.*\n.*\n.*)";
+        menu = menu.replaceAll("<[^>]+>","\n").replaceAll("\n+\\s*\n+","\n");
+        menu = StringEscapeUtils.unescapeHtml4(menu);
+        Matcher menuMatcher = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE).matcher(menu);
         if (!menuMatcher.find()) {
             return menu;
         }
@@ -44,7 +48,7 @@ public class LanseRestaurant extends AbstractHtmlRestaurant {
 
     @Override
     protected List<Calendar> getPossibleDates(String text) {
-        List<Calendar> dates = new ArrayList<Calendar>();
+        List<Calendar> dates = new ArrayList<>();
         Matcher matcher = Pattern.compile("([0-9]{1,2})\\.([0-9]{1,2})\\.(20[0-9]{2})").matcher(text);
         if (matcher.find()) {
             Calendar today= timeSource.getTodaysCalendar();

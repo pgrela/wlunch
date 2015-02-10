@@ -11,7 +11,7 @@ import com.pgrela.wlunch.common.MenuException;
 @Component
 public class Downloader {
     public String downloadElement(String url, String selector) {
-        return getDocument(url).select(selector).text();
+        return getDocument(url).select(selector).html();
     }
 
     private Document getDocument(String url) {

@@ -7,12 +7,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
 import org.testng.internal.Nullable;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+
+import javax.jws.WebService;
 
 public class MenuImpl implements Menu {
     private Collection<Calendar> possibleDates = new ArrayList<Calendar>();
