@@ -20,6 +20,11 @@ public class Menu {
 
         MenuBuilder menuBuilder = new MenuBuilder();
         for (Restaurant restaurant : restaurants) {
+
+            if(!restaurant.isOpened()){
+                continue;
+            }
+
             menuBuilder.appendHeader(restaurant.getName());
             LOG.info("Retrieving menu for {}", restaurant.getName());
             try {

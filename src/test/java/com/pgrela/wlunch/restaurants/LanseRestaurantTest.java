@@ -22,7 +22,7 @@ public class LanseRestaurantTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetPossibleDates() throws Exception {
-        List<Calendar> dates = lanseRestaurant.getPossibleDates("18-10-2013.");
+        List<Calendar> dates = lanseRestaurant.getPossibleDates("18.10.2013");
         List<String> datesStrings = new ArrayList<String>();
         for (Calendar date : dates) {
             datesStrings.add(new SimpleDateFormat("dd-MM-yyyy").format(date.getTime()));

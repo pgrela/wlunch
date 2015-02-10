@@ -16,4 +16,9 @@ public abstract class AbstractRestaurant implements Restaurant {
     protected List<Calendar> getPossibleDates(String text) {
         return Collections.emptyList();
     }
+
+    @Override
+    public boolean isOpened(){
+        return true;
+    }
 }

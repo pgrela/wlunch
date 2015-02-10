@@ -40,4 +40,9 @@ public class PierogerriaRestaurant extends AbstractHtmlRestaurant {
     protected List<Calendar> getPossibleDates(String text) {
         return Lists.newArrayList(Calendar.getInstance());
     }
+
+    @Override
+    public boolean isOpened() {
+        return false;
+    }
 }

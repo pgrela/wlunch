@@ -42,4 +42,9 @@ public class PiwpawRestaurant implements Restaurant {
             return new MenuImpl("Brak menu na dziś");
         }
     }
+
+    @Override
+    public boolean isOpened() {
+        return true;
+    }
 }
