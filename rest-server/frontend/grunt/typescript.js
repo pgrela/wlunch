@@ -1,0 +1,1 @@
+task.registerTask('default', ['typescript']);
