@@ -21,7 +21,10 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "target",
+    "node",
+    ".tscache"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

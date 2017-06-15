@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         ts: {
             default: {
-                src: ["src/main/typescript/**.ts", "!node_modules/**"],
+                src: ["src/main/typescript/**.ts"],
                 out: "target/classes/META-INF/resources/webjars/wlunch-rest-server/ts.js",
 
                 tsconfig:true
@@ -19,6 +19,13 @@ module.exports = function (grunt) {
                 cwd: "src/main/html/",
                 dest: 'target/classes/META-INF/resources/webjars/wlunch-rest-server/',
                 filter: 'isFile'
+            },
+            css: {
+                expand: true,
+                src: ['*', '**'],
+                cwd: "src/main/css/",
+                dest: 'target/classes/META-INF/resources/webjars/wlunch-rest-server/css',
+                filter: 'isFile'
             }
         },
 
@@ -27,9 +34,10 @@ module.exports = function (grunt) {
                 options: {
                     port: 8081,
                     hostname: '*',
-                    base: ["src/main/html", "target/classes/META-INF/resources/"],
-                    livereload: true,
-                    keepalive: true,
+                    debug: true,
+                    base: ["src/main/html", "src/main", "target/classes/META-INF/resources/"],
+                    livereload: 49000,
+                    //keepalive: true,
                     middleware: function (connect, options, middlewares) {
                         middlewares.unshift(function (req, res, next) {
                             if (!req.url.startsWith('/webjars') ||
@@ -44,10 +52,30 @@ module.exports = function (grunt) {
                     }
                 }
             }
+        },
+        watch: {
+            ts: {
+                options: {
+                    livereload: 49000
+                },
+                files: ['src/main/typescript/*.ts', 'src/main/typescript/**.ts'],
+                tasks: ['copy:html']
+            }
+        },
+        concurrent:{
+            dev:{
+                tasks: ['connect', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
 
     });
     // grunt.loadNpmTasks("ts");
     //grunt.loadNpmTasks("typescript");
     grunt.registerTask("default", ["ts", "copy:html"]);
+    grunt.registerTask('lserv', [
+        'connect', 'watch'
+    ]);
 };

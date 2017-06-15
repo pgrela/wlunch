@@ -21,3 +21,4 @@ switch (document.readyState) {
     default:
         document.addEventListener('DOMContentLoaded', () => main());
 }
+

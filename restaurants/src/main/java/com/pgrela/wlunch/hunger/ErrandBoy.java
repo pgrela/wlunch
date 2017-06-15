@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.UncheckedIOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +52,8 @@ public class ErrandBoy {
         } catch (MenuException e) {
             LOG.warn("Failed to get menu from {}!", e, restaurant.getName());
             textMenu = String.format("Failed to get menu from %s!", e.getMessage());
+        } catch (UncheckedIOException e) {
+
         } finally {
             menuBoard.updateMenu(restaurant.getName(), textMenu);
         }

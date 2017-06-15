@@ -6,3 +6,5 @@ rebel-remote.xml
 *.iml
 *.log
 .idea
+node_modules
+.tscache
